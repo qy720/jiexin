@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapping.ExtCproductMapper">
+    <resultMap id="extCproductRM" type="com.jx.back.entity.ExtCproduct" >
+        <id property="id" column="EXT_CPRODUCT_ID"/>
+        <result property="contractProductId" column="CONTRACT_PRODUCT_ID"/>
+        <result property="factoryId" column="FACTORY_ID"/>
+        <result property="factoryName" column="FACTORY_NAME"/>
+        <result property="ctype" column="CTYPE"/>
+        <result property="productNo" column="PRODUCT_NO"/>
+        <result property="productImage" column="PRODUCT_IMAGE"/>
+        <result property="productDesc" column="PRODUCT_DESC"/>
+        <result property="cnumber" column="CNUMBER"/>
+        <result property="packingUnit" column="PACKING_UNIT"/>
+        <result property="price" column="PRICE"/>
+        <result property="amount" column="AMOUNT"/>
+        <result property="productRequest" column="PRODUCT_REQUEST"/>
+        <result property="orderNo" column="ORDER_NO"/>
+    </resultMap>
+
+    <select id="find" parameterType="map" resultMap="extCproductRM">
+        SELECT * FROM ext_cproduct_c
+        WHERE 1=1
+        <if test="contractProductId != null"> AND CONTRACT_PRODUCT_ID=#{contractProductId} </if>
+    </select>
+
+    <select id="get" parameterType="String" resultMap="extCproductRM">
+        SELECT * FROM  ext_cproduct_c
+        WHERE EXT_CPRODUCT_ID=#{pid}
+    </select>
+
+    <insert id="insert" parameterType="com.jx.back.entity.ExtCproduct">
+        insert into ext_cproduct_c
+        (EXT_CPRODUCT_ID,CONTRACT_PRODUCT_ID,FACTORY_ID,FACTORY_NAME,CTYPE,PRODUCT_NO,
+        PRODUCT_IMAGE,PRODUCT_DESC,CNUMBER,PACKING_UNIT,PRICE,AMOUNT,PRODUCT_REQUEST,ORDER_NO)
+        values
+        (
+        #{id},
+        #{contractProductId},
+        #{factoryId},
+        #{factoryName},
+        #{ctype},
+        #{productNo},
+        #{productImage},
+        #{productDesc},
+        #{cnumber},
+        #{packingUnit},
+        #{price},
+        #{amount},
+        #{productRequest},
+        #{orderNo}
+        );
+    </insert>
+
+    <update id="update" parameterType="com.jx.back.entity.ExtCproduct">
+        UPDATE ext_cproduct_c
+        <set>
+            CONTRACT_PRODUCT_ID=#{contractProductId},
+            FACTORY_ID=#{factoryId},
+            <if test="factoryName != null">FACTORY_NAME=#{factoryName},</if>
+            <if test="ctype != null">CTYPE=#{ctype},</if>
+            <if test="productNo != null">PRODUCT_NO=#{productNo},</if>
+            <if test="productImage != null">PRODUCT_IMAGE=#{productImage},</if>
+            <if test="productDesc != null">PRODUCT_DESC=#{productDesc},</if>
+            <if test="cnumber != null">CNUMBER=#{cnumber},</if>
+            <if test="packingUnit != null">PACKING_UNIT=#{packingUnit},</if>
+            <if test="price != null">PRICE=#{price},</if>
+            <if test="amount != null">AMOUNT=#{amount},</if>
+            <if test="productRequest != null">PRODUCT_REQUEST=#{productRequest},</if>
+            <if test="orderNo != null">ORDER_NO=#{orderNo}</if>
+        </set>
+        WHERE EXT_CPRODUCT_ID=#{id}
+    </update>
+
+    <delete id="deleteById" parameterType="String">
+        DELETE FROM ext_cproduct_c
+        WHERE
+        EXT_CPRODUCT_ID=#{pid}
+    </delete>
+
+    <delete id="delete" parameterType="String">
+        DELETE FROM ext_cproduct_c
+        WHERE EXT_CPRODUCT_ID IN
+        <foreach collection="array" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
