@@ -13,8 +13,6 @@
 </head>
 <body>
 <form method="post">
-	<input type="text" name="id" value="${obj.id}"/>
-	<input type="text" name="contractProductId" value="${obj.contractProductId}"/>
 
 	<div id="menubar">
 		<div id="middleMenubar">

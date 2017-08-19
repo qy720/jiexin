@@ -6,6 +6,7 @@ import com.jx.back.entity.Factory;
 import com.jx.back.entity.SysCode;
 import com.jx.back.service.ExtCProductService;
 import com.jx.back.service.FactoryService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +33,6 @@ public class ExtCproductController extends BaseController {
         model.addAttribute("dataList",dataList);
         //生产厂家
         List<Factory> factoryList = factoryService.getFactoryList();
-
         model.addAttribute("factoryList",factoryList);
 
         //准备下拉分类列表
@@ -48,4 +48,33 @@ public class ExtCproductController extends BaseController {
         model.addAttribute("contractProductId",extCProduct.getContractProductId());
         return "redirect:/cargo/extcproduct/tocreate.action";
     }
+
+    //转向修改页面
+    @RequestMapping("/cargo/extcproduct/toupdate.action")
+    public String toupdate(String id,Model model){
+        ExtCproduct obj = extCProductService.get(id);
+        model.addAttribute("obj",obj);
+        //生产厂家
+        List<Factory> factoryList = factoryService.getFactoryList();
+        model.addAttribute("factoryList",factoryList);
+        //准备下拉分类列表
+        List<SysCode> ctypeList = extCProductService.getCtypeList();
+        model.addAttribute("ctypeList",ctypeList);
+        return "/cargo/contract/jExtCproductUpdate.jsp";
+    }
+
+    //修改保存
+    @RequestMapping("/cargo/extcproduct/update.action")
+    public String update(ExtCproduct extCproduct){
+        extCProductService.update(extCproduct);
+        return "redirect:/cargo/extcproduct/tocreate.action";
+    }
+
+    //删除
+    @RequestMapping("/cargo/extcproduct/deleteById.action")
+    public String deleteById(String id){
+        extCProductService.deleteById(id);
+        return "redirect:/cargo/extcproduct/tocreate.action";
+    }
+
 }
