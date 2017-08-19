@@ -3,6 +3,7 @@ package com.jx.back.controller.cargo.contract;
 import com.jx.back.controller.BaseController;
 import com.jx.back.entity.ExtCproduct;
 import com.jx.back.entity.Factory;
+import com.jx.back.entity.SysCode;
 import com.jx.back.service.ExtCProductService;
 import com.jx.back.service.FactoryService;
 import org.springframework.stereotype.Controller;
@@ -31,7 +32,12 @@ public class ExtCproductController extends BaseController {
         model.addAttribute("dataList",dataList);
         //生产厂家
         List<Factory> factoryList = factoryService.getFactoryList();
+
         model.addAttribute("factoryList",factoryList);
+
+        //准备下拉分类列表
+        List<SysCode> ctypeList = extCProductService.getCtypeList();
+        model.addAttribute("ctypeList",ctypeList);
 
         return "/cargo/contract/jExtCproductCreate.jsp";
     }

@@ -55,13 +55,12 @@
                     <tr>
                         <td class="columnTitle_mustbe">分类：</td>
                         <td class="tableContent">
-                            <%--<select name="ctype">
+                            <select name="ctype">
                                 <option value="">--请选择--</option>
                                 <c:forEach items="${ctypeList}" var="cl">
                                     <option value="${cl.orderNo}">${cl.name}</option>
                                 </c:forEach>
-                            </select>--%>
-                            <input type="text" name="ctype"/>
+                            </select>
                         </td>
                         <td class="columnTitle_mustbe">货物照片：</td>
                         <td class="tableContent"><input type="text" name="productImage"/></td>
